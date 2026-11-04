@@ -1,0 +1,71 @@
+import tkinter as tk
+
+
+class WeightConverter:
+    def __init__(self,root):
+        self.root=root
+        self.root.title('Weight Converter')
+        self.root.geometry('600x200')
+        self.root.configure(bg='white')
+
+        self.top_frame=tk.Frame(self.root,bg="#e6e3e3")
+        self.top_frame.pack(pady=10,padx=20,fill='x')
+
+        tk.Label(self.top_frame,text='Enter weight in kg',font=('Arial',13),bg='#e6e3e3').pack(side='left',padx=10)
+
+        self.kg_entry=tk.Entry(self.top_frame,font=('Arial',12),width=22)
+        self.kg_entry.pack(side='left',padx=10,ipady=3)
+
+        self.covert_btn=tk.Button(self.top_frame,text='Convert',font=('Arial',11,'bold'),bg='#e6e3e3',bd=1,command=self.convert)
+        self.covert_btn.pack(side='left',padx=20)
+
+        bottom_frame=tk.Frame(self.root,bg='#e6e3e3')
+        bottom_frame.pack(fill='x',padx=20)
+
+        tk.Label(bottom_frame,text='Gram',font=('Arial',12,'bold'),width=19,relief=tk.RIDGE,bg='#e6e3e3',padx=10).grid(row=0,column=0)
+        tk.Label(bottom_frame,text='Pounds',font=('Arial',12,'bold'),width=19,relief=tk.RIDGE,bg='#e6e3e3',padx=10).grid(row=0,column=1)
+        tk.Label(bottom_frame,text='Ounce',font=('Arial',12,'bold'),width=20,relief=tk.RIDGE,bg='#e6e3e3',padx=10).grid(row=0,column=2)
+
+    
+        bottom_frame2=tk.Frame(self.root,bg='#e6e3e3')
+        bottom_frame2.pack(fill='x',padx=20,pady=10)
+
+        self.gram_var=tk.StringVar()
+        self.pound_var=tk.StringVar()
+        self.ounce_var=tk.StringVar()
+
+        tk.Entry(bottom_frame2,font=('Arial',12),textvariable=self.gram_var,width=21,state='readonly',readonlybackground='white',justify='center').pack(ipady=3,side='left')
+        tk.Entry(bottom_frame2,font=('Arial',12),textvariable=self.pound_var,width=20,state='readonly',readonlybackground='white',justify='center').pack(ipady=3,side='left')
+        tk.Entry(bottom_frame2,font=('Arial',12),textvariable=self.ounce_var,width=21,state='readonly',readonlybackground='white',justify='center').pack(ipady=3,side='left')
+                        
+        
+
+
+
+    def convert(self):
+        try:
+            kg=float(self.kg_entry.get())
+
+            gram=kg*1000
+            pounds=kg*2.20462
+            ounce=kg*35.274
+
+            self.gram_var.set(f'{gram:.2f}')
+            self.pound_var.set(f'{pounds:.2f}')
+            self.ounce_var.set(f'{ounce:.2f}')
+
+        except ValueError:
+            self.gram_var.set('Invalid')
+            self.pound_var.set('Invalid')
+            self.ounce_var.set('Invalid')
+
+
+
+
+
+
+
+if __name__=='__main__':
+    window=tk.Tk()
+    app=WeightConverter(window)
+    window.mainloop()
